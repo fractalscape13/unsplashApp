@@ -1,23 +1,21 @@
 import React from 'react';
-import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { Text, View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Header() {
-
+export default function Header(props) {
   const navigation = useNavigation();
-
   return (
-    <View style={styles.mainHeaderWrapper}>
+    <View style={styles.container}>
       <View style={{width: '25%'}}>
         <TouchableOpacity 
-          onPress={() => { props.onBackPress ? props?.onBackPress() : navigation.goBack(); }}
-          disabled={ props.home ? true : false}>
+          onPress={() => navigation.goBack()}
+          disabled={props.home ? true : false}>
             <AntDesign
               style={props.home ? {display: 'none'} : null}
               name='arrowleft'
               size={35}
-              color={BLACK}
+              color={'#FFFBF4'}
               resizeMode='contain'
             />
         </TouchableOpacity>
@@ -28,27 +26,37 @@ export default function Header() {
           : null 
         }
       </View>
-      <View style={{width: '25%'}}/>
+      <View style={{width: '25%', alignItems: 'flex-end'}}>
+        <TouchableOpacity 
+          onPress={() => console.log('open the damn filter')}
+          disabled={props.filter ? false : true}>
+            <Ionicons
+              style={props.filter ? null : {display: 'none'}}
+              name='filter'
+              size={35}
+              color={'#FFFBF4'}
+              resizeMode='contain'
+            />
+        </TouchableOpacity>
+      </View>    
     </View>
   );
 };
 
-const width = Dimensions.get('window').width;
-
 const styles = StyleSheet.create({
-  mainHeaderWrapper: {
+  container: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: '100%',
-    width: width - 35,
+    width: Platform.OS === 'web' ? '90vw' : null,
   },
   titleContainer: {
     alignItems: 'center',
     width: '50%',
   },
   text: {
-    fontSize: 18,
-    fontWeight: '700'
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#FFFBF4',
   }
 });
