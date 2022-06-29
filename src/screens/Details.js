@@ -9,7 +9,7 @@ export default function Details({route}) {
 
   const downloadImage = async () => {
     let res = await downloadPhoto(imageDetails.links.download_location);
-    await MediaLibrary.saveToLibraryAsync(res);
+    await MediaLibrary.saveToLibraryAsync(res.url);
   };
 
   return (
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#131A27',
   },
   text: {
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: 28,
     fontWeight: '500',
     color: '#FFFBF4',

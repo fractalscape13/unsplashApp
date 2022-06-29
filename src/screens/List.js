@@ -15,12 +15,22 @@ export default function List({navigation}) {
   const flatListRef = useRef();
 
   const submitSearch = async () => {
-    let res = await getPhotos(searchTerm, 1);
+    let res = await getPhotos(searchTerm, 1, orientationFilter, colorFilter);
     setImageData(res.results);
     flatListRef.current.scrollToOffset({offset: 0});
     setSubmittedSearchTerm(searchTerm);
     setPageNumber(2);
   };
+
+  const clearFilterSearch = async () => {
+    setOrientationFilter(null);
+    setColorFilter(null);
+    let res = await getPhotos(searchTerm, 1, null, null);
+    setImageData(res.results);
+    flatListRef.current.scrollToOffset({offset: 0});
+    setSubmittedSearchTerm(searchTerm);
+    setPageNumber(2);
+  }
 
   const nextPage = async () => {
     let res = await getPhotos(submittedSearchTerm, pageNumber);
@@ -76,6 +86,8 @@ export default function List({navigation}) {
         closeModal={() => setModalVisible(false)}
         setColorFilter={setColorFilter}
         setOrientationFilter={setOrientationFilter}
+        submitSearch={submitSearch}
+        clearFilterSearch={clearFilterSearch}
       />}
     </View>
   )
