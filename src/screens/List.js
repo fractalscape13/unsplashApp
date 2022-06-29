@@ -1,12 +1,17 @@
 import React, { useState, useRef } from "react";
 import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { getPhotos } from '../api/apiCalls';
+import FilterModal from "../components/FilterModal";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function List({navigation}) {
   const [imageData, setImageData] = useState([]);
   const [pageNumber, setPageNumber] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [submittedSearchTerm, setSubmittedSearchTerm] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [orientationFilter, setOrientationFilter] = useState(null);
+  const [colorFilter, setColorFilter] = useState(null);
   const flatListRef = useRef();
 
   const submitSearch = async () => {
@@ -43,6 +48,15 @@ export default function List({navigation}) {
         <TouchableOpacity style={styles.button} onPress={() => submitSearch()}>
           <Text style={styles.text}>Submit</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+            <Ionicons
+              style={styles.filterIcon}
+              name='filter'
+              size={35}
+              color={'#FFFBF4'}
+              resizeMode='contain'
+            />
+        </TouchableOpacity>
       </View>
       {imageData.length ? (
         <FlatList 
@@ -56,6 +70,13 @@ export default function List({navigation}) {
       ) : (
         <Text style={styles.bodyText}>Search for images and see them here!</Text>
       )}
+      {modalVisible && <FilterModal 
+        colorFilter={colorFilter}
+        orientationFilter={orientationFilter}
+        closeModal={() => setModalVisible(false)}
+        setColorFilter={setColorFilter}
+        setOrientationFilter={setOrientationFilter}
+      />}
     </View>
   )
 };
@@ -75,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3C4E77',
     color: '#fff',
     fontWeight: '600',
-    width: '60%',
+    width: '50%',
     height: 35,
     borderWidth: 1,
     borderColor: '#FFFBF4',
@@ -92,7 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     paddingHorizontal: 5,
-    marginLeft: 10,
+    marginHorizontal: '8%',
   },
   bodyText: {
     textAlign: 'center',

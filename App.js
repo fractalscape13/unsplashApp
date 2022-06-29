@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Header from './src/components/Header';
@@ -19,9 +20,9 @@ export default function App() {
       }} >
         <Stack.Screen 
           name="List" 
-          component={List}           
+          component={List}       
           options={{
-            headerTitle: () => <Header home filter title={'Unsplashtastic'} />,
+            headerTitle: () => <Header home title={'Unsplashtastic'} />,
           }}
         />
         <Stack.Screen
