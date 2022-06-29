@@ -8,8 +8,9 @@ export default function Details({route}) {
   const {imageDetails} = route.params;
 
   const downloadImage = async () => {
-    let res = await downloadPhoto(imageDetails.links.download_location);
-    await MediaLibrary.saveToLibraryAsync(res.url);
+    let res = await downloadPhoto(imageDetails.urls.full);
+    // let res = await downloadPhoto(imageDetails.links.download_location);
+    await MediaLibrary.saveToLibraryAsync(res);
   };
 
   return (

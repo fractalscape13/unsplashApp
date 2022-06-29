@@ -17,6 +17,10 @@ export const getPhotos = async (searchTerm, pageNumber, orientationFilter, color
 
 export const downloadPhoto = async (url) => {
   return fetch(url + '&client_id=' + accessKey)
-    .then(response => response.json())
+    // .then(response => response.json())
+    .then(response => response.blob())
+    .then(myBlob => {
+      return URL.createObjectURL(myBlob);
+    })
     .catch(error => console.log('error', error))
 };
