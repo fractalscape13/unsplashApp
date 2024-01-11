@@ -8,7 +8,7 @@ By: Joseph Wangemann
 
 -Api calls are located in 'src/api/apiCalls.js'
 
--Obviously access keys should be hidden, but for the purposes of this project they are publically available in 'src/api/apiCalls.js'
+-Get access key for Unsplash
 
 -To run on iOS simulator: expo start --ios
 
