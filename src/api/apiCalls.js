@@ -1,5 +1,5 @@
-const accessKey = 'gf3IG1yj6BI-M3aO31DkrQc4IfmKAqspsEUx7WF9sDg'
-const secretKey = 'STFwPVqiT1i8JXx4ZbcTevuwXqD8kQiEifdzealtKec'
+const accessKey = ''
+const secretKey = ''
 const redirectUri = 'urn:ietf:wg:oauth:2.0:oob'
 
 export const getPhotos = async (searchTerm, pageNumber, orientationFilter, colorFilter) => {
